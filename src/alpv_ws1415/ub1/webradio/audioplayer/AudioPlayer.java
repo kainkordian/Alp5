@@ -93,6 +93,11 @@ public class AudioPlayer implements Runnable {
 		}
 
 	}
+	
+	public void stop() {
+		line.drain();
+		line.close();
+	}
 
 	/**
 	 * Write bytes to the underlying {@link javax.sound.sampled.SourceDataLine}.
