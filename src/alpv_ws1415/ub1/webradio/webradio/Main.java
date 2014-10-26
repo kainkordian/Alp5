@@ -40,20 +40,20 @@ public class Main {
 
 			if(args[i].equals("server")) {
 				System.out.println("server ini");
+				U1_akServer server;
 				
-				U1_akServer server = new U1_akServer();
 				if (args[i+1] != null) {
-					server.setAddress(Integer.parseInt(args[i+1]));
-				}
+					server = new U1_akServer(Integer.parseInt(args[i+1]));
+				} else { server  = new U1_akServer();}
 				server.run();
 			}
 			else if(args[i].equals("client")) {
 				System.out.println("client ini");
 				
-				U1_akClient client = new U1_akClient();
+				U1_akClient client;
 				if (args[i+1] != null && args[i+2] != null) {
-					client.setAddress(args[i+1], Integer.parseInt(args[i+2]));
-				}
+					client  = new U1_akClient(args[i+1], Integer.parseInt(args[i+2]));
+				} else { client  = new U1_akClient(); }
 				client.run();
 			}
 			else

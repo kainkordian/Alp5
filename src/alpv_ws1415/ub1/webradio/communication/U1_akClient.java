@@ -8,12 +8,15 @@ import java.net.InetSocketAddress;
 public class U1_akClient implements Client
 {
 	java.net.Socket socket;
-	int port = 24;
-	String ip = "192.168.178.93";
-	
-	public void setAddress (String newIp, int newPort){
-		ip = newIp;
-		port = newPort;
+	int port;
+	String ip;
+	public U1_akClient (){
+		this.ip = "localhost";
+		this.port = 24;
+	}
+	public U1_akClient (String ip, int port){
+		this.ip = ip;
+		this.port = port;
 	}
 	
 	public void run(){

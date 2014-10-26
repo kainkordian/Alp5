@@ -9,10 +9,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class U1_akServer 
 {
 	ServerSocket socket;
-	int port  = 24;
-	
-	public void setAddress (int newPort){
-		port = newPort;
+	int port;
+	public U1_akServer (){
+		this.port = 24;
+	}
+	public U1_akServer (int port){
+		this.port = port;
 	}
 	
 	/**
