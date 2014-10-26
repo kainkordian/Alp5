@@ -10,9 +10,11 @@ public class U1_akServer
 {
 	ServerSocket socket;
 	int port;
+	
 	public U1_akServer (){
 		this.port = 24;
 	}
+	
 	public U1_akServer (int port){
 		this.port = port;
 	}

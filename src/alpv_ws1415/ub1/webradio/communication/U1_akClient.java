@@ -10,10 +10,12 @@ public class U1_akClient implements Client
 	java.net.Socket socket;
 	int port;
 	String ip;
+	
 	public U1_akClient (){
 		this.ip = "localhost";
 		this.port = 24;
 	}
+	
 	public U1_akClient (String ip, int port){
 		this.ip = ip;
 		this.port = port;
