@@ -24,16 +24,23 @@ public class U1_akClient implements Client
 			connect(sockAdr);
 			
 			/**
-			 * Source for the following 4 Code Rows (30-33):
+			 * Source for the following Code:
 			 * http://de.wikibooks.org/wiki/Java_Standard:_Socket_ServerSocket_(java.net)_UDP_und_TCP_IP
 			 */
 			BufferedReader bufferedReader = new BufferedReader(	new InputStreamReader(socket.getInputStream()));
-			char[] buffer = new char[200];
-			int anzahlZeichen = bufferedReader.read(buffer, 0, 200); // blockiert bis Nachricht empfangen
-			String message = new String(buffer, 0, anzahlZeichen);
+			char[] buffer;
+			int anzahlZeichen;
+			String message;
 
-			System.out.println("message recieved:");
-			System.out.println(message);
+			System.out.println("receiving messages:");
+			
+			while (true) {
+				buffer = new char[10];
+				anzahlZeichen = bufferedReader.read(buffer, 0 , 10);
+				message = new String(buffer, 0, anzahlZeichen);
+				System.out.println(message);
+			}
+			
 		}
 		catch(IOException e)
 		{
@@ -43,7 +50,7 @@ public class U1_akClient implements Client
 	
 	public void connect(InetSocketAddress serverAddress) throws IOException
 	{
-		socket = new java.net.Socket(ip, port);
+		socket = new java.net.Socket(serverAddress.getAddress(), serverAddress.getPort());
 	}
 
 	/**

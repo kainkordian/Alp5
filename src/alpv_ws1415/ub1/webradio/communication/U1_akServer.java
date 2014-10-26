@@ -25,11 +25,11 @@ public class U1_akServer
 			java.net.Socket socketClient = socket.accept();
 						 
 			PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socketClient.getOutputStream()));
-			printWriter.println("WAVWAVWAV");
-			printWriter.println("homo");
-			printWriter.flush();
-			
-			 	
+			for (int i = 0; i < 10; i++) {
+				printWriter.println("\"homo\"");
+				printWriter.flush();
+			}
+				 	
 		}
 		catch(IOException e)
 		{
