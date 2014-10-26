@@ -27,7 +27,7 @@ public class U1_akServer {
 	}
 	
 	/**
-	 * Run a new server, which awaits a client and sends a message to it.
+	 * Run a new server, which awaits a client and streams a .wav to it.
 	 */
 	public void run() {
 		//ini sound file and audioplayer
@@ -74,6 +74,7 @@ public class U1_akServer {
 				System.out.print(count);
 				System.out.print(":");
 				System.out.println(abData[count]);
+				
 				//send sound data
 				try {
 				    OutputStream out = socketClient.getOutputStream(); 
