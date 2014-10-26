@@ -26,7 +26,7 @@ public class U1_akServer
 						 
 			PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socketClient.getOutputStream()));
 			for (int i = 0; i < 10; i++) {
-				printWriter.println("\"homo\"");
+				printWriter.println("\"test\"");
 				printWriter.flush();
 			}
 				 	
