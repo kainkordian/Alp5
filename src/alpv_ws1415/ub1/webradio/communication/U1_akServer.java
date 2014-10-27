@@ -27,11 +27,11 @@ public class U1_akServer {
 	}
 	
 	/**
-	 * Run a new server, which awaits a client and sends a message to it.
+	 * Run a new server, which awaits a client and streams a .wav to it.
 	 */
 	public void run() {
 		//ini sound file and audioplayer
-		String strFilename = "data/test.wav";
+		String strFilename = "data/swimwater1.wav";
 		File soundFile = new File(strFilename);
 		
 		AudioInputStream audioInputStream = null;
@@ -58,11 +58,18 @@ public class U1_akServer {
 			socketClient = socket.accept();
 		} catch(IOException e) { }
 							
-		int count=0;
+		
+		//mark the beginning of the sound (to enable looping afterwards)
+		//audioInputStream.mark(EXTERNAL_BUFFER_SIZE);
+		
+		
 		//stream
+		int count=0;
+		
 		int	nBytesRead = 0;
 		byte[]	abData = new byte[EXTERNAL_BUFFER_SIZE];
-		while (nBytesRead != -1) {
+		while (nBytesRead != -1) 
+		{
 			count+=1;
 			try	{
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
@@ -74,6 +81,7 @@ public class U1_akServer {
 				System.out.print(count);
 				System.out.print(":");
 				System.out.println(abData[count]);
+				
 				//send sound data
 				try {
 				    OutputStream out = socketClient.getOutputStream(); 
@@ -85,7 +93,28 @@ public class U1_akServer {
 					}
 				} catch(IOException e) { }
 			}
+			
+			//end sound, loop
+			if(nBytesRead==-1)
+			{
+				//setze alles auf null
+				nBytesRead=0;
+				abData = new byte[EXTERNAL_BUFFER_SIZE];
+				count=0;
+				audioplay.stop();
+				
+				//lade wieder das audio input stream
+				try {
+					audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.exit(1);
+				}
+				//und starte neu
+				audioplay.start();
+			}
 		}
+		System.out.println("Stopping!");
 		audioplay.stop();	
 		/*
 		try {

@@ -7,28 +7,26 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
 
-public class U1_akClient implements Client
-{
-	private static final int	EXTERNAL_BUFFER_SIZE = 128000;
+public class U1_akClient implements Client {
 	java.net.Socket socket;
 	int port;
 	String ip;
 	
-	public U1_akClient (){
+	public U1_akClient () {
 		this.ip = "localhost";
 		this.port = 24;
 	}
 	
-	public U1_akClient (String ip, int port){
+	public U1_akClient (String ip, int port) {
 		this.ip = ip;
 		this.port = port;
 	}
 	
-	public void run(){
+	public void run() {
 		//cheat; Client should get the audio format FROM THE SERVER
 		
 
-		String strFilename="data/test.wav";
+		String strFilename="data/swimwater1.wav";
 		File soundFile = new File(strFilename);
 		
 		AudioInputStream audioInputStream = null;
@@ -68,19 +66,22 @@ public class U1_akClient implements Client
 
 			System.out.println("receiving messages:");
 			*/
+			InputStream in;
+			DataInputStream dis;
+			byte[] data;
+			int len;
 			while (true) {
-				 System.out.println("waiting for package..");
-				 InputStream in = socket.getInputStream();
-				 DataInputStream dis = new DataInputStream(in);
-
-				 int len = dis.readInt();
-				 byte[] data = new byte[len];
-				 if (len > 0) {
-					 dis.readFully(data);
-				 }
-				 audioplay.writeBytes(data); //play bytes
-				 System.out.println(data);
-				 System.out.println();
+				System.out.println("waiting for a package...");
+				in = socket.getInputStream();
+				dis = new DataInputStream(in);
+				len = dis.readInt();
+				data = new byte[len];
+				if (len > 0) {
+					dis.readFully(data);
+				}
+				audioplay.writeBytes(data); //play the music!
+				System.out.println("received!");
+				System.out.println();
 				/*
 				buffer = new char[10];
 				anzahlZeichen = bufferedReader.read(buffer, 0 , 10);
@@ -88,12 +89,8 @@ public class U1_akClient implements Client
 				System.out.println(message);
 				*/
 			}
-			
-		}
-		catch(IOException e)
-		{
-		
-		}
+			//System.out.println("Good bye!");
+		} catch(IOException e) { }
 	}
 	
 	public void connect(InetSocketAddress serverAddress) throws IOException
