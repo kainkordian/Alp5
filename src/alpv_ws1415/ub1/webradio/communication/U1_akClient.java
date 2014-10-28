@@ -2,10 +2,20 @@ package alpv_ws1415.ub1.webradio.communication;
 import java.io.*;
 //import java.net.InetAddress;
 import java.net.InetSocketAddress;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+
 import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 
 public class U1_akClient implements Client {
 	java.net.Socket socket;
@@ -22,29 +32,32 @@ public class U1_akClient implements Client {
 		this.port = port;
 	}
 	
-	public void run() {
-		//cheat; Client should get the audio format FROM THE SERVER
-		
+	//converts a string to an audioformat
+	private AudioFormat getAudioFormat(String s)
+	{
+        float sampleRate = 16000.0F;
+        int sampleSizeBits = 16;
+        int channels = 1;
+        boolean signed = true;
+        boolean bigEndian = false;
 
-		String strFilename="data/swimwater1.wav";
-		File soundFile = new File(strFilename);
-		
-		AudioInputStream audioInputStream = null;
-		try
-		{
-			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			System.exit(1);
-		}
-		
-		AudioFormat	audioFormat = audioInputStream.getFormat();//<<<<<< audio format needed
-		
-		
-		AudioPlayer audioplay=new AudioPlayer(audioFormat);
-		audioplay.start();
+        
+        //TODO: read the audio format from the string
+        //swimwater.wav: PCM_SIGNED 22050.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian
+        //test.wav: PCM_SIGNED 44100.0 Hz, 16 bit, stereo, 4 bytes/frame, little-endian
+        sampleRate = 44100.0F;
+        sampleSizeBits = 16;
+        channels = 2;
+        signed = true;
+        bigEndian = false;
+        
+        return new AudioFormat(sampleRate, sampleSizeBits, channels, signed, bigEndian);
+    }
+	
+	
+	public void run() 
+	{
+		AudioFormat	audioFormat = null;
 		
 		//connecting
 		InetSocketAddress sockAdr = new InetSocketAddress(ip, port);
@@ -66,10 +79,28 @@ public class U1_akClient implements Client {
 
 			System.out.println("receiving messages:");
 			*/
+
 			InputStream in;
 			DataInputStream dis;
 			byte[] data;
 			int len;
+			
+			
+			//first get the audio format from the server
+		 	BufferedReader bufferedReader =
+		 	    new BufferedReader(
+		 		new InputStreamReader(
+		 	  	    socket.getInputStream()));
+		 	char[] buffer = new char[200];
+		 	int anzahlZeichen = bufferedReader.read(buffer, 0, 200); // blockiert bis Nachricht empfangen
+		 	String nachricht = new String(buffer, 0, anzahlZeichen);
+		 	
+			audioFormat=getAudioFormat(nachricht);//interpretiere die nachricht in ein audio format
+			
+			AudioPlayer audioplay=new AudioPlayer(audioFormat);
+			audioplay.start();
+			
+			//then receive the streaming
 			while (true) {
 				System.out.println("waiting for a package...");
 				in = socket.getInputStream();

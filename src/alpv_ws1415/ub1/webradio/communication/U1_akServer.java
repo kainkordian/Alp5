@@ -10,10 +10,18 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
 
 import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioFormat.Encoding;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-public class U1_akServer {
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class U1_akServer implements Server{
+	
 	private static final int	EXTERNAL_BUFFER_SIZE = 128000;
 	ServerSocket socket;
 	int port;
@@ -29,9 +37,10 @@ public class U1_akServer {
 	/**
 	 * Run a new server, which awaits a client and streams a .wav to it.
 	 */
-	public void run() {
+	public void run() 
+	{
 		//ini sound file and audioplayer
-		String strFilename = "data/swimwater1.wav";
+		String strFilename = "data/test.wav";
 		File soundFile = new File(strFilename);
 		
 		AudioInputStream audioInputStream = null;
@@ -46,24 +55,37 @@ public class U1_akServer {
 		AudioFormat	audioFormat = audioInputStream.getFormat();
 		AudioPlayer audioplay = new AudioPlayer(audioFormat);
 				
-		//play sound and stream
 		System.out.println("audio player ini");
 		audioplay.start();
+
+		System.out.print("The audio format is: ");
+		System.out.println(audioFormat.toString());
 		
-		//send sound data
+		//accept connection
 		java.net.Socket socketClient = null;
 		try {
-			//ini socket
 			socket = new ServerSocket(this.port);
 			socketClient = socket.accept();
 		} catch(IOException e) { }
 							
 		
-		//mark the beginning of the sound (to enable looping afterwards)
-		//audioInputStream.mark(EXTERNAL_BUFFER_SIZE);
 		
 		
-		//stream
+		//firts send format to client
+	 	 PrintWriter printWriter;
+		try 
+		{
+			printWriter = new PrintWriter(
+			new OutputStreamWriter(
+					socketClient.getOutputStream()));
+	 	 	printWriter.print(audioFormat.toString());
+	 	 	printWriter.flush();
+		} catch (IOException e1) 
+		{
+			e1.printStackTrace();
+		}
+		
+		//then stream
 		int count=0;
 		
 		int	nBytesRead = 0;
