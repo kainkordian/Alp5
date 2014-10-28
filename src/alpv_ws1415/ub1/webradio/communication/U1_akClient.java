@@ -43,13 +43,87 @@ public class U1_akClient implements Client {
 
         
         //TODO: read the audio format from the string
-        //swimwater.wav: PCM_SIGNED 22050.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian
+        
+        //examples:
+        //swimwater1.wav: PCM_SIGNED 22050.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian
         //test.wav: PCM_SIGNED 44100.0 Hz, 16 bit, stereo, 4 bytes/frame, little-endian
-        sampleRate = 44100.0F;
-        sampleSizeBits = 16;
-        channels = 2;
-        signed = true;
-        bigEndian = false;
+        
+        //store different aspects in differents strings
+        String lastValue="";
+        String sampleRateString="";
+        String sampleSizeBitsString="";
+        String channelsString="";
+        String signedString="";
+        String bigEndianString="";
+        
+        for (char ch : s.toCharArray())
+        {
+            System.out.print(ch);
+            
+            if(ch!=',')//komma= nächste wert
+            {
+            	if(ch!=' ')
+            		lastValue+=ch;
+            }
+            else
+            {
+            	if(sampleRateString.isEmpty()) sampleRateString=lastValue;
+            	else if(sampleSizeBitsString.isEmpty()) sampleSizeBitsString=lastValue;
+            	else if(channelsString.isEmpty()) channelsString=lastValue;
+            	else if(signedString.isEmpty()) signedString=lastValue;
+            	
+            	lastValue="";
+            }
+        }
+        if(bigEndianString.isEmpty()) bigEndianString=lastValue;
+
+        //interpret those strings
+
+        //sampleRate
+        String temp="";
+        for (char ch : sampleRateString.toCharArray())
+        {
+            if((ch>='0' && ch<='9'))
+            {
+            	temp+=ch;
+            }
+            else if(ch=='.')
+            	break;
+        }
+        sampleRate=(float)Integer.parseInt(temp);
+
+        //sampleSizeBits
+        temp="";
+        for (char ch : sampleSizeBitsString.toCharArray())
+        {
+            if(ch>='0' && ch<='9')
+            {
+            	temp+=ch;
+            }
+        }
+        sampleSizeBits=Integer.parseInt(temp);
+
+        //channels
+        if(channelsString.contains("mono"))
+        	channels=1;
+        else if(channelsString.contains("stereo"))
+        	channels=2;
+        
+        //signed
+        signed=true;
+        
+        //bigEndian
+        if(bigEndianString.contains("little-endian"))
+        	bigEndian=false;
+        else bigEndian=true;
+        
+        
+        System.out.println();
+        System.out.println(sampleRate);
+        System.out.println(sampleSizeBits);
+        System.out.println(channels);
+        System.out.println(signed);
+        System.out.println(bigEndian);
         
         return new AudioFormat(sampleRate, sampleSizeBits, channels, signed, bigEndian);
     }
@@ -102,7 +176,10 @@ public class U1_akClient implements Client {
 			
 			//then receive the streaming
 			while (true) {
-				System.out.println("waiting for a package...");
+				
+				//System.out.println("waiting for a package...");
+				
+				
 				in = socket.getInputStream();
 				dis = new DataInputStream(in);
 				len = dis.readInt();
@@ -111,8 +188,11 @@ public class U1_akClient implements Client {
 					dis.readFully(data);
 				}
 				audioplay.writeBytes(data); //play the music!
-				System.out.println("received!");
-				System.out.println();
+				
+				//System.out.println("received!");
+				//System.out.println();
+				
+				
 				/*
 				buffer = new char[10];
 				anzahlZeichen = bufferedReader.read(buffer, 0 , 10);

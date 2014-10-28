@@ -100,9 +100,10 @@ public class U1_akServer implements Server{
 			}
 			if (nBytesRead >= 0) {
 				//audioplay.writeBytes(abData);
-				System.out.print(count);
+				
+				/*System.out.print(count);
 				System.out.print(":");
-				System.out.println(abData[count]);
+				System.out.println(abData[count]);*/
 				
 				//send sound data
 				try {
