@@ -40,14 +40,15 @@ public class U1_akServer implements Server{
 	public void run() 
 	{
 		//ini sound file and audioplayer
-		String strFilename = "data/test.wav";
+		String strFilename = "data/swimwater1.wav";
 		File soundFile = new File(strFilename);
 		
 		AudioInputStream audioInputStream = null;
 		
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-		} catch (Exception e) {
+		} catch (Exception e) 
+		{
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -61,8 +62,33 @@ public class U1_akServer implements Server{
 		System.out.print("The audio format is: ");
 		System.out.println(audioFormat.toString());
 		
+		//launch connection thread; manage connecting clients
+		ConnectionsThread cJob=new ConnectionsThread(audioFormat,socket,port);
+		Thread cThread=new Thread(cJob);
+		cThread.start();
+		
+		//launch streaming thread; stream music to different clients
+		StreamingThread sJob=new StreamingThread(audioInputStream,audioplay,soundFile);
+		Thread sThread = new Thread(sJob);
+		sThread.start();
+		
+		//sync threads
+		while(true)
+		{
+			//check if connectionThread got a new client
+			if(cJob.getSocketClientsSize()!=sJob.getSocketClientsSize())
+			{
+				//if so, update client list in streamingThread
+				sJob.syncSocketClients(cJob.getSocketClients());
+				System.out.println("socket client synced");
+			}
+		}
+		
+		
+		
+		
+		/*
 		//accept connection
-		java.net.Socket socketClient = null;
 		try {
 			socket = new ServerSocket(this.port);
 			socketClient = socket.accept();
@@ -72,7 +98,7 @@ public class U1_akServer implements Server{
 		
 		
 		//firts send format to client
-	 	 PrintWriter printWriter;
+	 	PrintWriter printWriter;
 		try 
 		{
 			printWriter = new PrintWriter(
@@ -84,8 +110,12 @@ public class U1_akServer implements Server{
 		{
 			e1.printStackTrace();
 		}
+		*/
+		
+		
 		
 		//then stream
+		/*
 		int count=0;
 		
 		int	nBytesRead = 0;
@@ -101,9 +131,9 @@ public class U1_akServer implements Server{
 			if (nBytesRead >= 0) {
 				//audioplay.writeBytes(abData);
 				
-				/*System.out.print(count);
-				System.out.print(":");
-				System.out.println(abData[count]);*/
+				//System.out.print(count);
+				//System.out.print(":");
+				//System.out.println(abData[count]);
 				
 				//send sound data
 				try {
@@ -138,20 +168,9 @@ public class U1_akServer implements Server{
 			}
 		}
 		System.out.println("Stopping!");
-		audioplay.stop();	
-		/*
-		try {
-			socket = new ServerSocket(port);
-			java.net.Socket socketClient = socket.accept();
-			
-			PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socketClient.getOutputStream()));
-			for (int i = 0; i < 10; i++) {
-				printWriter.println("\"test\"");
-				printWriter.flush();
-			}	 	
-		}
-		catch(IOException e) { }
+		audioplay.stop();
 		*/
+		
 	}
 	
 	/**
