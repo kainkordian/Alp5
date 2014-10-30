@@ -26,29 +26,30 @@ public class U1_akServer implements Server{
 	ServerSocket socket;
 	int port;
 	
+	
+	//default port is 24
 	public U1_akServer (){
 		this.port = 7777;
 	}
 	
+	//set the server port
 	public U1_akServer (int port){
 		this.port = port;
 	}
 	
 	/**
-	 * Run a new server, which awaits a client and streams a .wav to it.
+	 * Runnable for the server.
 	 */
-	public void run() 
-	{
+	public void run() {
 		//ini sound file and audioplayer
-		String strFilename = "data/swimwater1.wav";
+		String strFilename = "data/test.wav";
 		File soundFile = new File(strFilename);
 		
 		AudioInputStream audioInputStream = null;
 		
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-		} catch (Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -56,19 +57,19 @@ public class U1_akServer implements Server{
 		AudioFormat	audioFormat = audioInputStream.getFormat();
 		AudioPlayer audioplay = new AudioPlayer(audioFormat);
 				
-		System.out.println("audio player ini");
+		System.out.println("Initiating audio player...");
 		audioplay.start();
 
-		System.out.print("The audio format is: ");
+		System.out.print("Done. The audio format is: ");
 		System.out.println(audioFormat.toString());
 		
 		//launch connection thread; manage connecting clients
-		ConnectionsThread cJob=new ConnectionsThread(audioFormat,socket,port);
-		Thread cThread=new Thread(cJob);
+		ConnectionsThread cJob = new ConnectionsThread(audioFormat, socket, port);
+		Thread cThread = new Thread(cJob);
 		cThread.start();
 		
 		//launch streaming thread; stream music to different clients
-		StreamingThread sJob=new StreamingThread(audioInputStream,audioplay,soundFile);
+		StreamingThread sJob = new StreamingThread(audioInputStream, audioplay, soundFile);
 		Thread sThread = new Thread(sJob);
 		sThread.start();
 		
@@ -88,94 +89,6 @@ public class U1_akServer implements Server{
 				System.out.println("socket client synced");
 			}
 		}
-		
-		
-		
-		
-		/*
-		//accept connection
-		try {
-			socket = new ServerSocket(this.port);
-			socketClient = socket.accept();
-		} catch(IOException e) { }
-							
-		
-		
-		
-		//firts send format to client
-	 	PrintWriter printWriter;
-		try 
-		{
-			printWriter = new PrintWriter(
-			new OutputStreamWriter(
-					socketClient.getOutputStream()));
-	 	 	printWriter.print(audioFormat.toString());
-	 	 	printWriter.flush();
-		} catch (IOException e1) 
-		{
-			e1.printStackTrace();
-		}
-		*/
-		
-		
-		
-		//then stream
-		/*
-		int count=0;
-		
-		int	nBytesRead = 0;
-		byte[]	abData = new byte[EXTERNAL_BUFFER_SIZE];
-		while (nBytesRead != -1) 
-		{
-			count+=1;
-			try	{
-				nBytesRead = audioInputStream.read(abData, 0, abData.length);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (nBytesRead >= 0) {
-				//audioplay.writeBytes(abData);
-				
-				//System.out.print(count);
-				//System.out.print(":");
-				//System.out.println(abData[count]);
-				
-				//send sound data
-				try {
-				    OutputStream out = socketClient.getOutputStream(); 
-				    DataOutputStream dos = new DataOutputStream(out);
-				    int len= abData.length;
-				    dos.writeInt(len);
-			        if (len > 0) {
-			        	dos.write(abData, 0, abData.length);
-					}
-				} catch(IOException e) { }
-			}
-			
-			//end sound, loop
-			if(nBytesRead==-1)
-			{
-				//setze alles auf null
-				nBytesRead=0;
-				abData = new byte[EXTERNAL_BUFFER_SIZE];
-				count=0;
-				audioplay.stop();
-				
-				//lade wieder das audio input stream
-				try {
-					audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-				} catch (Exception e) {
-					e.printStackTrace();
-					System.exit(1);
-				}
-				//und starte neu
-				audioplay.start();
-			}
-		}
-		System.out.println("Stopping!");
-		audioplay.stop();
-		*/
-		
 	}
 	
 	/**
