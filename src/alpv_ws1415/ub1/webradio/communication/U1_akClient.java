@@ -23,8 +23,9 @@ public class U1_akClient implements Client {
 	String ip;
 	
 	public U1_akClient () {
+		this.ip = "192.168.178.86";
 		this.ip = "localhost";
-		this.port = 24;
+		this.port = 7777;
 	}
 	
 	public U1_akClient (String ip, int port) {
@@ -177,7 +178,7 @@ public class U1_akClient implements Client {
 			//then receive the streaming
 			while (true) {
 				
-				//System.out.println("waiting for a package...");
+				System.out.println("waiting for a package...");
 				
 				
 				in = socket.getInputStream();
@@ -189,8 +190,8 @@ public class U1_akClient implements Client {
 				}
 				audioplay.writeBytes(data); //play the music!
 				
-				//System.out.println("received!");
-				//System.out.println();
+				System.out.println("received!");
+				System.out.println();
 				
 				
 				/*

@@ -27,7 +27,7 @@ public class U1_akServer implements Server{
 	int port;
 	
 	public U1_akServer (){
-		this.port = 24;
+		this.port = 7777;
 	}
 	
 	public U1_akServer (int port){
@@ -75,8 +75,13 @@ public class U1_akServer implements Server{
 		//sync threads
 		while(true)
 		{
+			/*System.out.print(cJob.getSocketClientsSize());
+			System.out.print(":");
+			System.out.println(sJob.getSocketClientsSize());*/
+			
 			//check if connectionThread got a new client
-			if(cJob.getSocketClientsSize()!=sJob.getSocketClientsSize())
+			//if(cJob.getSocketClientsSize()!=sJob.getSocketClientsSize())
+			if(cJob.getSocketClientsSize()>0)
 			{
 				//if so, update client list in streamingThread
 				sJob.syncSocketClients(cJob.getSocketClients());

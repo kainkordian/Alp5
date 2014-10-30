@@ -65,6 +65,9 @@ public class ConnectionsThread implements Runnable
 						socketClient.getOutputStream()));
 		 	 	printWriter.print(audioformat.toString());
 		 	 	printWriter.flush();
+		 	 	
+
+				System.out.println("NEW CLIENT MOFO");
 			}
 			catch(IOException e) 
 			{

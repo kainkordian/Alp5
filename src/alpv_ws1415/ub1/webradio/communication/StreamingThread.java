@@ -72,7 +72,8 @@ public class StreamingThread implements Runnable
 				/*System.out.print(count);
 				System.out.print(":");
 				System.out.println(abData[count]);*/
-				
+
+				//System.out.print("junge");
 				//send sound data
 				try {
 					if(clients!=null && clients.size()>0)
