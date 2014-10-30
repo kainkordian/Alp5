@@ -159,7 +159,7 @@ public class U1_akClient implements Client {
 			DataInputStream dis;
 			byte[] data;
 			int len;
-			
+			 
 			
 			//first get the audio format from the server
 		 	BufferedReader bufferedReader =

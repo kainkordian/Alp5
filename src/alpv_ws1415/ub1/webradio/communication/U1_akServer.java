@@ -76,9 +76,9 @@ public class U1_akServer implements Server{
 		//sync threads
 		while(true)
 		{
-			/*System.out.print(cJob.getSocketClientsSize());
+			System.out.print(cJob.getSocketClientsSize());
 			System.out.print(":");
-			System.out.println(sJob.getSocketClientsSize());*/
+			System.out.println(sJob.getSocketClientsSize());
 			
 			//check if connectionThread got a new client
 			//if(cJob.getSocketClientsSize()!=sJob.getSocketClientsSize())
@@ -96,7 +96,7 @@ public class U1_akServer implements Server{
 	 */
 	public void close() {
 		try
-		{
+		{ 
 			socket.close();
 		}
 		catch(IOException e)
