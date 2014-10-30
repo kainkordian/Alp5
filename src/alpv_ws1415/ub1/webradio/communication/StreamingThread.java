@@ -16,11 +16,7 @@ import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-public class StreamingThread implements Runnable
-{
+public class StreamingThread implements Runnable {
 	private static final int	EXTERNAL_BUFFER_SIZE = 128000;
 	
 	AudioInputStream audioInputStream;
@@ -28,38 +24,33 @@ public class StreamingThread implements Runnable
 	AudioPlayer audioplay;
 	File soundFile;
 	
-	public StreamingThread(AudioInputStream as, AudioPlayer ap,File sf)
-	{
-		audioInputStream=as;
-		audioplay=ap;
-		soundFile=sf;
-		clients=null;
+	public StreamingThread(AudioInputStream as, AudioPlayer ap, File sf) {
+		audioInputStream = as;
+		audioplay = ap;
+		soundFile = sf;
+		clients = null;
 	}
-	public ArrayList<java.net.Socket> getSocketClients()
-	{
+	
+	public ArrayList<java.net.Socket> getSocketClients() {
 		return clients;
 	}
-	public void syncSocketClients(ArrayList<java.net.Socket> sc)
-	{
+	
+	public void syncSocketClients(ArrayList<java.net.Socket> sc) {
 		clients=sc;
 	}
-	public int getSocketClientsSize()
-	{
+	
+	public int getSocketClientsSize() {
 		if(clients==null) return 0;
 		return clients.size();
 	}
 	
 	
-	public void run()
-	{
-
+	public void run() {
 		//then stream
 		int count=0;
-		
 		int	nBytesRead = 0;
 		byte[]	abData = new byte[EXTERNAL_BUFFER_SIZE];
-		while (nBytesRead != -1) 
-		{
+		while (nBytesRead != -1) {
 			count+=1;
 			try	{
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
@@ -67,26 +58,19 @@ public class StreamingThread implements Runnable
 				e.printStackTrace();
 			}
 			if (nBytesRead >= 0) {
-				//audioplay.writeBytes(abData);
-				
-				/*System.out.print(count);
-				System.out.print(":");
-				System.out.println(abData[count]);*/
-				
+				audioplay.writeBytes(abData);
+								
 				//send sound data
 				try {
-					if(clients!=null && clients.size()>0)
-					{
+					if(clients!=null && clients.size()>0) {
 						System.out.print(count);
 						System.out.print(":");
 						System.out.println(abData[count]);
-						
 						//send to each client
-						for(int i=0;i<clients.size();i++)
-						{
+						for(int i=0; i < clients.size(); i++) {
 						    OutputStream out = clients.get(i).getOutputStream(); 
 						    DataOutputStream dos = new DataOutputStream(out);
-						    int len= abData.length;
+						    int len = abData.length;
 						    dos.writeInt(len);
 					        if (len > 0) {
 					        	dos.write(abData, 0, abData.length);
@@ -97,26 +81,25 @@ public class StreamingThread implements Runnable
 			}
 			
 			//end sound, loop
-			if(nBytesRead==-1)
-			{
-				//setze alles auf null
-				nBytesRead=0;
+			if(nBytesRead == -1) {
+				//reset
+				nBytesRead = 0;
 				abData = new byte[EXTERNAL_BUFFER_SIZE];
 				count=0;
 				audioplay.stop();
 				
-				//lade wieder das audio input stream
+				//reload the music
 				try {
 					audioInputStream = AudioSystem.getAudioInputStream(soundFile);
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.exit(1);
 				}
-				//und starte neu
+				//start over
 				audioplay.start();
 			}
 		}
-		System.out.println("Stopping!");
+		System.out.println("Good bye!");
 		audioplay.stop();
 	}
 	
