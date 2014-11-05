@@ -146,7 +146,7 @@ public class U1_akClient implements Client {
 		{
 			System.out.println("connecting...");
 			connect(sockAdr);
-			System.out.println("connected!");
+			//System.out.println("connected!");
 			
 			/**
 			 * Source for the following Code:
@@ -187,10 +187,10 @@ public class U1_akClient implements Client {
 		    AudioFormatMessage audioformatmessage = 
 		    		AudioFormatMessage.parseDelimitedFrom(socket.getInputStream());
 
-			System.out.print("format received: ");
+			/*System.out.print("format received: ");
 			System.out.println(audioformatmessage.getFormatString());
 			System.out.print("test received: ");
-			System.out.println(audioformatmessage.getTestString());
+			System.out.println(audioformatmessage.getTestString());*/
 
 			
 			//interpretiere die nachricht in ein audio format
@@ -216,8 +216,7 @@ public class U1_akClient implements Client {
 				}
 				audioplay.writeBytes(data); //play the music!
 				
-				/*System.out.println("received!");
-				System.out.println();*/
+				//System.out.println("received!"); System.out.println();
 				
 				
 				/*

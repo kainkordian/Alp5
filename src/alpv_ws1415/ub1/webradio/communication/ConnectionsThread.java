@@ -67,13 +67,6 @@ public class ConnectionsThread implements Runnable {
 
 		System.out.println("waiting for client...");
 		
-		/*try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-
 		java.net.Socket socketClient;
 		try 
 		{
@@ -83,15 +76,11 @@ public class ConnectionsThread implements Runnable {
 				socketClient = socket.accept();
 				clients.add(socketClient);
 				//send audio format as string
-				//printWriter = new PrintWriter(new OutputStreamWriter(socketClient.getOutputStream()));
 				printWriter = new PrintWriter(new OutputStreamWriter(socketClient.getOutputStream()));
 		 	 	printWriter.print(outStream);
 		 	 	printWriter.flush();
 
-				//audioFormatBuilder.writeTo(socketClient.getOutputStream());
-		 	 	
-
-				//System.out.println("format sent");
+				System.out.println("New client!");
 			}	
 		}
 		catch(IOException e) {
