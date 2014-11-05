@@ -46,7 +46,8 @@ public class StreamingThread implements Runnable {
 	
 	
 	public void run() {
-		//then stream
+		System.out.println("Streaming...");
+		//stream
 		int count=0;
 		int	nBytesRead = 0;
 		byte[]	abData = new byte[EXTERNAL_BUFFER_SIZE];
@@ -60,17 +61,9 @@ public class StreamingThread implements Runnable {
 			if (nBytesRead >= 0) {
 				//audioplay.writeBytes(abData);
 				
-				/*System.out.print(count);
-				System.out.print(":");
-				System.out.println(abData[count]);*/
-
-				//System.out.print("junge");
 				//send sound data
 				try {
 					if(clients!=null && clients.size()>0) {
-						System.out.print(count);
-						System.out.print(":");
-						System.out.println(abData[count]);
 						//send to each client
 						for(int i=0; i < clients.size(); i++) {
 						    OutputStream out = clients.get(i).getOutputStream(); 

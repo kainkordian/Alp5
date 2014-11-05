@@ -76,11 +76,7 @@ public class U1_akServer implements Server{
 		//sync threads
 		while(true)
 		{
-			cJob.getSocketClientsSize();
-			sJob.getSocketClientsSize();
-			System.out.print(cJob.getSocketClientsSize());
-			System.out.print(":");
-			System.out.println(sJob.getSocketClientsSize());
+			System.out.print("");
 			
 			//check if connectionThread got a new client
 			//if(cJob.getSocketClientsSize()!=sJob.getSocketClientsSize())
@@ -88,7 +84,7 @@ public class U1_akServer implements Server{
 			{
 				//if so, update client list in streamingThread
 				sJob.syncSocketClients(cJob.getSocketClients());
-				System.out.println("socket client synced");
+				//System.out.println("socket client synced");
 			}
 		}
 	}
