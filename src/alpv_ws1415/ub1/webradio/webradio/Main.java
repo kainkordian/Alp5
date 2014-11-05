@@ -16,9 +16,6 @@ public class Main {
 	 */
 	
 	
-	//maul du schmuck
-	
-	
 	
 	
 	

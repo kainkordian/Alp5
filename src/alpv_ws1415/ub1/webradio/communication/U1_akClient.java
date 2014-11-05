@@ -1,4 +1,8 @@
 package alpv_ws1415.ub1.webradio.communication;
+
+
+import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage;
+
 import java.io.*;
 //import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -14,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 
 
@@ -59,7 +64,7 @@ public class U1_akClient implements Client {
         
         for (char ch : s.toCharArray())
         {
-            System.out.print(ch);
+            //System.out.print(ch);
             
             if(ch!=',')//komma= nächste wert
             {
@@ -119,12 +124,12 @@ public class U1_akClient implements Client {
         else bigEndian=true;
         
         
-        System.out.println();
+        /*System.out.println();
         System.out.println(sampleRate);
         System.out.println(sampleSizeBits);
         System.out.println(channels);
         System.out.println(signed);
-        System.out.println(bigEndian);
+        System.out.println(bigEndian);*/
         
         return new AudioFormat(sampleRate, sampleSizeBits, channels, signed, bigEndian);
     }
@@ -139,7 +144,9 @@ public class U1_akClient implements Client {
 		
 		try
 		{
+			System.out.println("connecting...");
 			connect(sockAdr);
+			System.out.println("connected!");
 			
 			/**
 			 * Source for the following Code:
@@ -160,25 +167,44 @@ public class U1_akClient implements Client {
 			byte[] data;
 			int len;
 			 
-			
 			//first get the audio format from the server
-		 	BufferedReader bufferedReader =
+		 	/*BufferedReader bufferedReader =
 		 	    new BufferedReader(
 		 		new InputStreamReader(
 		 	  	    socket.getInputStream()));
 		 	char[] buffer = new char[200];
 		 	int anzahlZeichen = bufferedReader.read(buffer, 0, 200); // blockiert bis Nachricht empfangen
 		 	String nachricht = new String(buffer, 0, anzahlZeichen);
+		 	*/
+
+			//protobuf audio format message
 		 	
-			audioFormat=getAudioFormat(nachricht);//interpretiere die nachricht in ein audio format
+		 	//String nachricht=audioformatmessage.getFormatString();
+		 	
+			//System.out.println(nachricht);
+
+		    //AudioFormatMessage audioformatmessage = AudioFormatMessage.parseFrom(socket.getInputStream());
+		    AudioFormatMessage audioformatmessage = 
+		    		AudioFormatMessage.parseDelimitedFrom(socket.getInputStream());
+
+			System.out.print("format received: ");
+			System.out.println(audioformatmessage.getFormatString());
+			System.out.print("test received: ");
+			System.out.println(audioformatmessage.getTestString());
+
 			
+			//interpretiere die nachricht in ein audio format
+			audioFormat=getAudioFormat(audioformatmessage.getFormatString());
+		    
+		    
+		    
 			AudioPlayer audioplay=new AudioPlayer(audioFormat);
 			audioplay.start();
 			
 			//then receive the streaming
 			while (true) {
 				
-				System.out.println("waiting for a package...");
+				//System.out.println("waiting for a package...");
 				
 				
 				in = socket.getInputStream();
@@ -190,8 +216,8 @@ public class U1_akClient implements Client {
 				}
 				audioplay.writeBytes(data); //play the music!
 				
-				System.out.println("received!");
-				System.out.println();
+				/*System.out.println("received!");
+				System.out.println();*/
 				
 				
 				/*
