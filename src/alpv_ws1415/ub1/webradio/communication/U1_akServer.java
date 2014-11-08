@@ -3,26 +3,19 @@ package alpv_ws1415.ub1.webradio.communication;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.MalformedURLException;
-import java.io.BufferedReader;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
 
 import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioFormat.Encoding;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class U1_akServer implements Server{
 	
-	private static final int	EXTERNAL_BUFFER_SIZE = 128000;
 	ServerSocket socket;
 	int port;
 	
@@ -73,6 +66,11 @@ public class U1_akServer implements Server{
 		Thread sThread = new Thread(sJob);
 		sThread.start();
 		
+		//launch chat thread; listen to incoming chat message and send them to all
+		ChatThread chJob = new ChatThread();
+		Thread chThread = new Thread(chJob);
+		chThread.start();
+		
 		//sync threads
 		while(true)
 		{
@@ -84,6 +82,7 @@ public class U1_akServer implements Server{
 			{
 				//if so, update client list in streamingThread
 				sJob.syncSocketClients(cJob.getSocketClients());
+				chJob.syncSocketClients(cJob.getSocketClients());
 				//System.out.println("socket client synced");
 			}
 		}

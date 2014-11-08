@@ -2,40 +2,41 @@ package alpv_ws1415.ub1.webradio.communication;
 
 
 import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage;
+import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage;
 
-import java.io.*;
-//import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 
 import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 
 public class U1_akClient implements Client {
 	java.net.Socket socket;
 	int port;
 	String ip;
+	ArrayList<akChatMessage> chatmsg;
+	
 	
 	public U1_akClient () {
 		this.ip = "192.168.178.86";
 		this.ip = "localhost";
 		this.port = 7777;
+		
+		chatmsg = new ArrayList<akChatMessage>();
 	}
 	
 	public U1_akClient (String ip, int port) {
 		this.ip = ip;
 		this.port = port;
+
+		chatmsg = new ArrayList<akChatMessage>();
 	}
 	
 	//converts a string to an audioformat
@@ -135,6 +136,9 @@ public class U1_akClient implements Client {
     }
 	
 	
+	
+	
+	
 	public void run() 
 	{
 		AudioFormat	audioFormat = null;
@@ -146,89 +150,66 @@ public class U1_akClient implements Client {
 		{
 			System.out.println("connecting...");
 			connect(sockAdr);
+			
+			
 			//System.out.println("connected!");
 			
-			/**
-			 * Source for the following Code:
-			 * http://de.wikibooks.org/wiki/Java_Standard:_Socket_ServerSocket_(java.net)_UDP_und_TCP_IP
-			 */
-			
-			/*
-			BufferedReader bufferedReader = new BufferedReader(	new InputStreamReader(socket.getInputStream()));
-			char[] buffer;
-			int anzahlZeichen;
-			String message;
-
-			System.out.println("receiving messages:");
-			*/
-
-			InputStream in;
-			DataInputStream dis;
-			byte[] data;
-			int len;
-			 
-			//first get the audio format from the server
-		 	/*BufferedReader bufferedReader =
-		 	    new BufferedReader(
-		 		new InputStreamReader(
-		 	  	    socket.getInputStream()));
-		 	char[] buffer = new char[200];
-		 	int anzahlZeichen = bufferedReader.read(buffer, 0, 200); // blockiert bis Nachricht empfangen
-		 	String nachricht = new String(buffer, 0, anzahlZeichen);
-		 	*/
-
 			//protobuf audio format message
-		 	
-		 	//String nachricht=audioformatmessage.getFormatString();
-		 	
-			//System.out.println(nachricht);
-
-		    //AudioFormatMessage audioformatmessage = AudioFormatMessage.parseFrom(socket.getInputStream());
 		    AudioFormatMessage audioformatmessage = 
 		    		AudioFormatMessage.parseDelimitedFrom(socket.getInputStream());
 
-			/*System.out.print("format received: ");
-			System.out.println(audioformatmessage.getFormatString());
-			System.out.print("test received: ");
-			System.out.println(audioformatmessage.getTestString());*/
-
-			
 			//interpretiere die nachricht in ein audio format
 			audioFormat=getAudioFormat(audioformatmessage.getFormatString());
 		    
-		    
-		    
+
+			//sendChatMessageToServer("hi server");
+			
+			//start audio player
 			AudioPlayer audioplay=new AudioPlayer(audioFormat);
 			audioplay.start();
+
 			
-			//then receive the streaming
-			while (true) {
-				
-				//System.out.println("waiting for a package...");
-				
-				
-				in = socket.getInputStream();
-				dis = new DataInputStream(in);
-				len = dis.readInt();
-				data = new byte[len];
-				if (len > 0) {
-					dis.readFully(data);
-				}
-				audioplay.writeBytes(data); //play the music!
-				
-				//System.out.println("received!"); System.out.println();
-				
-				
-				/*
-				buffer = new char[10];
-				anzahlZeichen = bufferedReader.read(buffer, 0 , 10);
-				message = new String(buffer, 0, anzahlZeichen);
-				System.out.println(message);
-				*/
-			}
-			//System.out.println("Good bye!");
+			//launch receive audio thread; get audio data and play it
+			ReceiveAudioThread raJob = new ReceiveAudioThread(audioplay,socket);
+			Thread raThread = new Thread(raJob);
+			raThread.start();
+
+			//launch receive chat thread; get incoming chat messages
+			ReceiveChatThread rcJob = new ReceiveChatThread(chatmsg,socket);
+			Thread rcThread = new Thread(rcJob);
+			//rcThread.start();
+			
+
 		} catch(IOException e) { }
 	}
+	
+	
+	public void sendChatMessageToServer(String m)
+	{
+
+		ChatMessage.Builder chatMessageBuilder = ChatMessage.newBuilder();
+		PrintWriter printWriter;
+					
+		chatMessageBuilder.setPseudo("clientPseudo");
+		chatMessageBuilder.setMessage(m);
+		
+		ChatMessage chatmessage = chatMessageBuilder.build();
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+	    try {
+	    	chatmessage.writeDelimitedTo(outStream);
+
+			printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+	 	 	printWriter.print(outStream);
+	 	 	printWriter.flush();
+	 	 	
+	 	 	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void connect(InetSocketAddress serverAddress) throws IOException
 	{

@@ -1,20 +1,20 @@
 package alpv_ws1415.ub1.webradio.communication;
 
-import java.io.DataOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioFormat.Encoding;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
+
+import com.google.protobuf.ByteString;
 
 import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
+import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.SoundDataMessage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StreamingThread implements Runnable {
 	private static final int	EXTERNAL_BUFFER_SIZE = 128000;
@@ -47,12 +47,17 @@ public class StreamingThread implements Runnable {
 	
 	public void run() {
 		System.out.println("Streaming...");
+
+		SoundDataMessage.Builder soundDataBuilder = SoundDataMessage.newBuilder();
+		
+		
+		
 		//stream
-		int count=0;
 		int	nBytesRead = 0;
 		byte[]	abData = new byte[EXTERNAL_BUFFER_SIZE];
+		
+		
 		while (nBytesRead != -1) {
-			count+=1;
 			try	{
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
 			} catch (IOException e) {
@@ -60,9 +65,38 @@ public class StreamingThread implements Runnable {
 			}
 			if (nBytesRead >= 0) {
 				//audioplay.writeBytes(abData);
+
+				//protobuf usage: build sound data message
+				ByteString tempData=ByteString.copyFrom(abData);
+				soundDataBuilder.setData(tempData);
 				
-				//send sound data
+				SoundDataMessage sounddatatmsg = soundDataBuilder.build();
+
+				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+			    try {
+			    	sounddatatmsg.writeDelimitedTo(outStream);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			    
+			    //send to all
+				PrintWriter printWriter;
 				try {
+					if(clients!=null && clients.size()>0) 
+					{
+						//send to each client
+						for(int i=0; i < clients.size(); i++) 
+						{
+							printWriter = new PrintWriter(new OutputStreamWriter(clients.get(i).getOutputStream()));
+					 	 	printWriter.print(outStream);
+					 	 	printWriter.flush();
+						}
+					}
+				} catch(IOException e) { }
+				
+				
+				
+				/*try {
 					if(clients!=null && clients.size()>0) {
 						//send to each client
 						for(int i=0; i < clients.size(); i++) {
@@ -75,7 +109,7 @@ public class StreamingThread implements Runnable {
 							}
 						}
 					}
-				} catch(IOException e) { }
+				} catch(IOException e) { }*/
 			}
 			
 			//end sound, loop
@@ -83,7 +117,6 @@ public class StreamingThread implements Runnable {
 				//reset
 				nBytesRead = 0;
 				abData = new byte[EXTERNAL_BUFFER_SIZE];
-				count=0;
 				audioplay.stop();
 				
 				//reload the music
