@@ -1,6 +1,5 @@
 package alpv_ws1415.ub1.webradio.communication;
 
-import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage;
 
 import java.io.ByteArrayOutputStream;
 
@@ -13,6 +12,8 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 
 import javax.sound.sampled.AudioFormat;
+
+import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.SoundDataMessage;
 
 public class ConnectionsThread implements Runnable {
 	AudioFormat audioformat;
@@ -47,11 +48,10 @@ public class ConnectionsThread implements Runnable {
 		PrintWriter printWriter;
 		
 		//protobuf usage: build audio format message
-		AudioFormatMessage.Builder audioFormatBuilder = AudioFormatMessage.newBuilder();
+		SoundDataMessage.Builder audioFormatBuilder = SoundDataMessage.newBuilder();
 		audioFormatBuilder.setFormatString(audioformat.toString());
-		audioFormatBuilder.setTestString("bonsoir");
 		
-		AudioFormatMessage audioformatmsg = audioFormatBuilder.build();
+		SoundDataMessage audioformatmsg = audioFormatBuilder.build();
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 	    try {
@@ -77,7 +77,7 @@ public class ConnectionsThread implements Runnable {
 		 	 	printWriter.print(outStream);
 		 	 	printWriter.flush();
 
-				System.out.println("New client!");
+				//System.out.println("New client!");
 			}	
 		}
 		catch(IOException e) {

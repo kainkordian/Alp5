@@ -21,14 +21,22 @@ public class StreamingThread implements Runnable {
 	
 	AudioInputStream audioInputStream;
 	ArrayList<java.net.Socket> clients;
+	public akChatMessage lastMsg;
+	public boolean newMsg;
+	
 	AudioPlayer audioplay;
-	File soundFile;
+	public File soundFile;
+	boolean debugstuff;
+	
+	boolean newSoundFile;
 	
 	public StreamingThread(AudioInputStream as, AudioPlayer ap, File sf) {
 		audioInputStream = as;
 		audioplay = ap;
 		soundFile = sf;
-		clients = null;
+		clients = new ArrayList<java.net.Socket>();
+		newMsg=false;
+		newSoundFile=false;
 	}
 	
 	public ArrayList<java.net.Socket> getSocketClients() {
@@ -36,7 +44,11 @@ public class StreamingThread implements Runnable {
 	}
 	
 	public void syncSocketClients(ArrayList<java.net.Socket> sc) {
-		clients=sc;
+		clients.clear();
+		for(int i=0;i<sc.size();i++)
+		{
+			clients.add(sc.get(i));
+		}
 	}
 	
 	public int getSocketClientsSize() {
@@ -66,10 +78,23 @@ public class StreamingThread implements Runnable {
 			if (nBytesRead >= 0) {
 				//audioplay.writeBytes(abData);
 
-				//protobuf usage: build sound data message
+				//protobuf
 				ByteString tempData=ByteString.copyFrom(abData);
-				soundDataBuilder.setData(tempData);
 				
+				soundDataBuilder.clear();
+				soundDataBuilder.setData(tempData);//audio data
+				
+				//add msg if there is one
+				if(newMsg)
+				{
+					newMsg=false;
+					soundDataBuilder.setPseudo(lastMsg.pseudo);
+					soundDataBuilder.setMessage(lastMsg.message);
+					//System.out.println("transmitting msg to client");
+				}
+				
+				
+				//write protobuf to outputstream
 				SoundDataMessage sounddatatmsg = soundDataBuilder.build();
 
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -94,26 +119,11 @@ public class StreamingThread implements Runnable {
 					}
 				} catch(IOException e) { }
 				
-				
-				
-				/*try {
-					if(clients!=null && clients.size()>0) {
-						//send to each client
-						for(int i=0; i < clients.size(); i++) {
-						    OutputStream out = clients.get(i).getOutputStream(); 
-						    DataOutputStream dos = new DataOutputStream(out);
-						    int len = abData.length;
-						    dos.writeInt(len);
-					        if (len > 0) {
-					        	dos.write(abData, 0, abData.length);
-							}
-						}
-					}
-				} catch(IOException e) { }*/
 			}
 			
 			//end sound, loop
-			if(nBytesRead == -1) {
+			if(nBytesRead == -1 || newSoundFile) {
+				newSoundFile=false;
 				//reset
 				nBytesRead = 0;
 				abData = new byte[EXTERNAL_BUFFER_SIZE];

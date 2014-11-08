@@ -659,1316 +659,60 @@ public final class PacketProtos {
     // @@protoc_insertion_point(class_scope:alpv_ws1415.ub1.webradio.protobuf.TestMessage)
   }
 
-  public interface ChatMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:alpv_ws1415.ub1.webradio.protobuf.ChatMessage)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required string pseudo = 1;</code>
-     */
-    boolean hasPseudo();
-    /**
-     * <code>required string pseudo = 1;</code>
-     */
-    java.lang.String getPseudo();
-    /**
-     * <code>required string pseudo = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getPseudoBytes();
-
-    /**
-     * <code>required string message = 2;</code>
-     */
-    boolean hasMessage();
-    /**
-     * <code>required string message = 2;</code>
-     */
-    java.lang.String getMessage();
-    /**
-     * <code>required string message = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getMessageBytes();
-  }
-  /**
-   * Protobuf type {@code alpv_ws1415.ub1.webradio.protobuf.ChatMessage}
-   */
-  public static final class ChatMessage extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:alpv_ws1415.ub1.webradio.protobuf.ChatMessage)
-      ChatMessageOrBuilder {
-    // Use ChatMessage.newBuilder() to construct.
-    private ChatMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private ChatMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ChatMessage defaultInstance;
-    public static ChatMessage getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public ChatMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ChatMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              pseudo_ = bs;
-              break;
-            }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              message_ = bs;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage.class, alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<ChatMessage> PARSER =
-        new com.google.protobuf.AbstractParser<ChatMessage>() {
-      public ChatMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ChatMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ChatMessage> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    public static final int PSEUDO_FIELD_NUMBER = 1;
-    private java.lang.Object pseudo_;
-    /**
-     * <code>required string pseudo = 1;</code>
-     */
-    public boolean hasPseudo() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string pseudo = 1;</code>
-     */
-    public java.lang.String getPseudo() {
-      java.lang.Object ref = pseudo_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          pseudo_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string pseudo = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPseudoBytes() {
-      java.lang.Object ref = pseudo_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        pseudo_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int MESSAGE_FIELD_NUMBER = 2;
-    private java.lang.Object message_;
-    /**
-     * <code>required string message = 2;</code>
-     */
-    public boolean hasMessage() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required string message = 2;</code>
-     */
-    public java.lang.String getMessage() {
-      java.lang.Object ref = message_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          message_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string message = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getMessageBytes() {
-      java.lang.Object ref = message_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        message_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private void initFields() {
-      pseudo_ = "";
-      message_ = "";
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasPseudo()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMessage()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getPseudoBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getMessageBytes());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getPseudoBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getMessageBytes());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code alpv_ws1415.ub1.webradio.protobuf.ChatMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:alpv_ws1415.ub1.webradio.protobuf.ChatMessage)
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage.class, alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage.Builder.class);
-      }
-
-      // Construct using alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        pseudo_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        message_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_descriptor;
-      }
-
-      public alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage getDefaultInstanceForType() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage.getDefaultInstance();
-      }
-
-      public alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage build() {
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage buildPartial() {
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage result = new alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.pseudo_ = pseudo_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.message_ = message_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage) {
-          return mergeFrom((alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage other) {
-        if (other == alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage.getDefaultInstance()) return this;
-        if (other.hasPseudo()) {
-          bitField0_ |= 0x00000001;
-          pseudo_ = other.pseudo_;
-          onChanged();
-        }
-        if (other.hasMessage()) {
-          bitField0_ |= 0x00000002;
-          message_ = other.message_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (!hasPseudo()) {
-          
-          return false;
-        }
-        if (!hasMessage()) {
-          
-          return false;
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object pseudo_ = "";
-      /**
-       * <code>required string pseudo = 1;</code>
-       */
-      public boolean hasPseudo() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string pseudo = 1;</code>
-       */
-      public java.lang.String getPseudo() {
-        java.lang.Object ref = pseudo_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            pseudo_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string pseudo = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPseudoBytes() {
-        java.lang.Object ref = pseudo_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          pseudo_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string pseudo = 1;</code>
-       */
-      public Builder setPseudo(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        pseudo_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string pseudo = 1;</code>
-       */
-      public Builder clearPseudo() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        pseudo_ = getDefaultInstance().getPseudo();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string pseudo = 1;</code>
-       */
-      public Builder setPseudoBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        pseudo_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object message_ = "";
-      /**
-       * <code>required string message = 2;</code>
-       */
-      public boolean hasMessage() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string message = 2;</code>
-       */
-      public java.lang.String getMessage() {
-        java.lang.Object ref = message_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            message_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string message = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getMessageBytes() {
-        java.lang.Object ref = message_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          message_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string message = 2;</code>
-       */
-      public Builder setMessage(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        message_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string message = 2;</code>
-       */
-      public Builder clearMessage() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        message_ = getDefaultInstance().getMessage();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string message = 2;</code>
-       */
-      public Builder setMessageBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        message_ = value;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:alpv_ws1415.ub1.webradio.protobuf.ChatMessage)
-    }
-
-    static {
-      defaultInstance = new ChatMessage(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:alpv_ws1415.ub1.webradio.protobuf.ChatMessage)
-  }
-
-  public interface AudioFormatMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:alpv_ws1415.ub1.webradio.protobuf.AudioFormatMessage)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required string formatString = 1;</code>
-     */
-    boolean hasFormatString();
-    /**
-     * <code>required string formatString = 1;</code>
-     */
-    java.lang.String getFormatString();
-    /**
-     * <code>required string formatString = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getFormatStringBytes();
-
-    /**
-     * <code>required string testString = 2;</code>
-     */
-    boolean hasTestString();
-    /**
-     * <code>required string testString = 2;</code>
-     */
-    java.lang.String getTestString();
-    /**
-     * <code>required string testString = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getTestStringBytes();
-  }
-  /**
-   * Protobuf type {@code alpv_ws1415.ub1.webradio.protobuf.AudioFormatMessage}
-   */
-  public static final class AudioFormatMessage extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:alpv_ws1415.ub1.webradio.protobuf.AudioFormatMessage)
-      AudioFormatMessageOrBuilder {
-    // Use AudioFormatMessage.newBuilder() to construct.
-    private AudioFormatMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private AudioFormatMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final AudioFormatMessage defaultInstance;
-    public static AudioFormatMessage getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public AudioFormatMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private AudioFormatMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              formatString_ = bs;
-              break;
-            }
-            case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              testString_ = bs;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage.class, alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<AudioFormatMessage> PARSER =
-        new com.google.protobuf.AbstractParser<AudioFormatMessage>() {
-      public AudioFormatMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AudioFormatMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<AudioFormatMessage> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    public static final int FORMATSTRING_FIELD_NUMBER = 1;
-    private java.lang.Object formatString_;
-    /**
-     * <code>required string formatString = 1;</code>
-     */
-    public boolean hasFormatString() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string formatString = 1;</code>
-     */
-    public java.lang.String getFormatString() {
-      java.lang.Object ref = formatString_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          formatString_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string formatString = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFormatStringBytes() {
-      java.lang.Object ref = formatString_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        formatString_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TESTSTRING_FIELD_NUMBER = 2;
-    private java.lang.Object testString_;
-    /**
-     * <code>required string testString = 2;</code>
-     */
-    public boolean hasTestString() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required string testString = 2;</code>
-     */
-    public java.lang.String getTestString() {
-      java.lang.Object ref = testString_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          testString_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string testString = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTestStringBytes() {
-      java.lang.Object ref = testString_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        testString_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private void initFields() {
-      formatString_ = "";
-      testString_ = "";
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasFormatString()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTestString()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getFormatStringBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getTestStringBytes());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getFormatStringBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getTestStringBytes());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code alpv_ws1415.ub1.webradio.protobuf.AudioFormatMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:alpv_ws1415.ub1.webradio.protobuf.AudioFormatMessage)
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage.class, alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage.Builder.class);
-      }
-
-      // Construct using alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        formatString_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        testString_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_descriptor;
-      }
-
-      public alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage getDefaultInstanceForType() {
-        return alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage.getDefaultInstance();
-      }
-
-      public alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage build() {
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage buildPartial() {
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage result = new alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.formatString_ = formatString_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.testString_ = testString_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage) {
-          return mergeFrom((alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage other) {
-        if (other == alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage.getDefaultInstance()) return this;
-        if (other.hasFormatString()) {
-          bitField0_ |= 0x00000001;
-          formatString_ = other.formatString_;
-          onChanged();
-        }
-        if (other.hasTestString()) {
-          bitField0_ |= 0x00000002;
-          testString_ = other.testString_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (!hasFormatString()) {
-          
-          return false;
-        }
-        if (!hasTestString()) {
-          
-          return false;
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object formatString_ = "";
-      /**
-       * <code>required string formatString = 1;</code>
-       */
-      public boolean hasFormatString() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string formatString = 1;</code>
-       */
-      public java.lang.String getFormatString() {
-        java.lang.Object ref = formatString_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            formatString_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string formatString = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFormatStringBytes() {
-        java.lang.Object ref = formatString_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          formatString_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string formatString = 1;</code>
-       */
-      public Builder setFormatString(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        formatString_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string formatString = 1;</code>
-       */
-      public Builder clearFormatString() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        formatString_ = getDefaultInstance().getFormatString();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string formatString = 1;</code>
-       */
-      public Builder setFormatStringBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        formatString_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object testString_ = "";
-      /**
-       * <code>required string testString = 2;</code>
-       */
-      public boolean hasTestString() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string testString = 2;</code>
-       */
-      public java.lang.String getTestString() {
-        java.lang.Object ref = testString_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            testString_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string testString = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getTestStringBytes() {
-        java.lang.Object ref = testString_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          testString_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string testString = 2;</code>
-       */
-      public Builder setTestString(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        testString_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string testString = 2;</code>
-       */
-      public Builder clearTestString() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        testString_ = getDefaultInstance().getTestString();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string testString = 2;</code>
-       */
-      public Builder setTestStringBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        testString_ = value;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:alpv_ws1415.ub1.webradio.protobuf.AudioFormatMessage)
-    }
-
-    static {
-      defaultInstance = new AudioFormatMessage(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:alpv_ws1415.ub1.webradio.protobuf.AudioFormatMessage)
-  }
-
   public interface SoundDataMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:alpv_ws1415.ub1.webradio.protobuf.SoundDataMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required bytes data = 1;</code>
+     * <code>optional bytes data = 1;</code>
      */
     boolean hasData();
     /**
-     * <code>required bytes data = 1;</code>
+     * <code>optional bytes data = 1;</code>
      */
     com.google.protobuf.ByteString getData();
+
+    /**
+     * <code>optional string pseudo = 2;</code>
+     */
+    boolean hasPseudo();
+    /**
+     * <code>optional string pseudo = 2;</code>
+     */
+    java.lang.String getPseudo();
+    /**
+     * <code>optional string pseudo = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getPseudoBytes();
+
+    /**
+     * <code>optional string message = 3;</code>
+     */
+    boolean hasMessage();
+    /**
+     * <code>optional string message = 3;</code>
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>optional string message = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+
+    /**
+     * <code>optional string formatString = 4;</code>
+     */
+    boolean hasFormatString();
+    /**
+     * <code>optional string formatString = 4;</code>
+     */
+    java.lang.String getFormatString();
+    /**
+     * <code>optional string formatString = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getFormatStringBytes();
   }
   /**
    * Protobuf type {@code alpv_ws1415.ub1.webradio.protobuf.SoundDataMessage}
@@ -2027,6 +771,24 @@ public final class PacketProtos {
               data_ = input.readBytes();
               break;
             }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              pseudo_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              message_ = bs;
+              break;
+            }
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000008;
+              formatString_ = bs;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2070,20 +832,149 @@ public final class PacketProtos {
     public static final int DATA_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString data_;
     /**
-     * <code>required bytes data = 1;</code>
+     * <code>optional bytes data = 1;</code>
      */
     public boolean hasData() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required bytes data = 1;</code>
+     * <code>optional bytes data = 1;</code>
      */
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
 
+    public static final int PSEUDO_FIELD_NUMBER = 2;
+    private java.lang.Object pseudo_;
+    /**
+     * <code>optional string pseudo = 2;</code>
+     */
+    public boolean hasPseudo() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string pseudo = 2;</code>
+     */
+    public java.lang.String getPseudo() {
+      java.lang.Object ref = pseudo_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          pseudo_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string pseudo = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPseudoBytes() {
+      java.lang.Object ref = pseudo_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pseudo_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 3;
+    private java.lang.Object message_;
+    /**
+     * <code>optional string message = 3;</code>
+     */
+    public boolean hasMessage() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string message = 3;</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          message_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string message = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FORMATSTRING_FIELD_NUMBER = 4;
+    private java.lang.Object formatString_;
+    /**
+     * <code>optional string formatString = 4;</code>
+     */
+    public boolean hasFormatString() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string formatString = 4;</code>
+     */
+    public java.lang.String getFormatString() {
+      java.lang.Object ref = formatString_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          formatString_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string formatString = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFormatStringBytes() {
+      java.lang.Object ref = formatString_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        formatString_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       data_ = com.google.protobuf.ByteString.EMPTY;
+      pseudo_ = "";
+      message_ = "";
+      formatString_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2091,10 +982,6 @@ public final class PacketProtos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasData()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2104,6 +991,15 @@ public final class PacketProtos {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, data_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getPseudoBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getMessageBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getFormatStringBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2117,6 +1013,18 @@ public final class PacketProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, data_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getPseudoBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getMessageBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getFormatStringBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2237,6 +1145,12 @@ public final class PacketProtos {
         super.clear();
         data_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
+        pseudo_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        message_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        formatString_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -2269,6 +1183,18 @@ public final class PacketProtos {
           to_bitField0_ |= 0x00000001;
         }
         result.data_ = data_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.pseudo_ = pseudo_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.message_ = message_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.formatString_ = formatString_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2288,15 +1214,26 @@ public final class PacketProtos {
         if (other.hasData()) {
           setData(other.getData());
         }
+        if (other.hasPseudo()) {
+          bitField0_ |= 0x00000002;
+          pseudo_ = other.pseudo_;
+          onChanged();
+        }
+        if (other.hasMessage()) {
+          bitField0_ |= 0x00000004;
+          message_ = other.message_;
+          onChanged();
+        }
+        if (other.hasFormatString()) {
+          bitField0_ |= 0x00000008;
+          formatString_ = other.formatString_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasData()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -2321,19 +1258,19 @@ public final class PacketProtos {
 
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>required bytes data = 1;</code>
+       * <code>optional bytes data = 1;</code>
        */
       public boolean hasData() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required bytes data = 1;</code>
+       * <code>optional bytes data = 1;</code>
        */
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
       /**
-       * <code>required bytes data = 1;</code>
+       * <code>optional bytes data = 1;</code>
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -2345,11 +1282,239 @@ public final class PacketProtos {
         return this;
       }
       /**
-       * <code>required bytes data = 1;</code>
+       * <code>optional bytes data = 1;</code>
        */
       public Builder clearData() {
         bitField0_ = (bitField0_ & ~0x00000001);
         data_ = getDefaultInstance().getData();
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object pseudo_ = "";
+      /**
+       * <code>optional string pseudo = 2;</code>
+       */
+      public boolean hasPseudo() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string pseudo = 2;</code>
+       */
+      public java.lang.String getPseudo() {
+        java.lang.Object ref = pseudo_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            pseudo_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string pseudo = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPseudoBytes() {
+        java.lang.Object ref = pseudo_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pseudo_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string pseudo = 2;</code>
+       */
+      public Builder setPseudo(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        pseudo_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string pseudo = 2;</code>
+       */
+      public Builder clearPseudo() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        pseudo_ = getDefaultInstance().getPseudo();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string pseudo = 2;</code>
+       */
+      public Builder setPseudoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        pseudo_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object message_ = "";
+      /**
+       * <code>optional string message = 3;</code>
+       */
+      public boolean hasMessage() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string message = 3;</code>
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            message_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 3;</code>
+       */
+      public Builder setMessage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 3;</code>
+       */
+      public Builder clearMessage() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 3;</code>
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object formatString_ = "";
+      /**
+       * <code>optional string formatString = 4;</code>
+       */
+      public boolean hasFormatString() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional string formatString = 4;</code>
+       */
+      public java.lang.String getFormatString() {
+        java.lang.Object ref = formatString_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            formatString_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string formatString = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFormatStringBytes() {
+        java.lang.Object ref = formatString_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          formatString_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string formatString = 4;</code>
+       */
+      public Builder setFormatString(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        formatString_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string formatString = 4;</code>
+       */
+      public Builder clearFormatString() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        formatString_ = getDefaultInstance().getFormatString();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string formatString = 4;</code>
+       */
+      public Builder setFormatStringBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        formatString_ = value;
         onChanged();
         return this;
       }
@@ -2371,16 +1536,6 @@ public final class PacketProtos {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_alpv_ws1415_ub1_webradio_protobuf_TestMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_alpv_ws1415_ub1_webradio_protobuf_SoundDataMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -2396,12 +1551,11 @@ public final class PacketProtos {
     java.lang.String[] descriptorData = {
       "\n\022packetprotos.proto\022!alpv_ws1415.ub1.we" +
       "bradio.protobuf\"8\n\013TestMessage\022\n\n\002id\030\001 \002" +
-      "(\r\022\014\n\004data\030\002 \002(\014\022\017\n\007message\030\003 \001(\t\".\n\013Cha" +
-      "tMessage\022\016\n\006pseudo\030\001 \002(\t\022\017\n\007message\030\002 \002(" +
-      "\t\">\n\022AudioFormatMessage\022\024\n\014formatString\030" +
-      "\001 \002(\t\022\022\n\ntestString\030\002 \002(\t\" \n\020SoundDataMe" +
-      "ssage\022\014\n\004data\030\001 \002(\014B1\n!alpv_ws1415.ub1.w" +
-      "ebradio.protobufB\014PacketProtos"
+      "(\r\022\014\n\004data\030\002 \002(\014\022\017\n\007message\030\003 \001(\t\"W\n\020Sou" +
+      "ndDataMessage\022\014\n\004data\030\001 \001(\014\022\016\n\006pseudo\030\002 " +
+      "\001(\t\022\017\n\007message\030\003 \001(\t\022\024\n\014formatString\030\004 \001" +
+      "(\tB1\n!alpv_ws1415.ub1.webradio.protobufB" +
+      "\014PacketProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2421,24 +1575,12 @@ public final class PacketProtos {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_alpv_ws1415_ub1_webradio_protobuf_TestMessage_descriptor,
         new java.lang.String[] { "Id", "Data", "Message", });
-    internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_alpv_ws1415_ub1_webradio_protobuf_ChatMessage_descriptor,
-        new java.lang.String[] { "Pseudo", "Message", });
-    internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_alpv_ws1415_ub1_webradio_protobuf_AudioFormatMessage_descriptor,
-        new java.lang.String[] { "FormatString", "TestString", });
     internal_static_alpv_ws1415_ub1_webradio_protobuf_SoundDataMessage_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_alpv_ws1415_ub1_webradio_protobuf_SoundDataMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_alpv_ws1415_ub1_webradio_protobuf_SoundDataMessage_descriptor,
-        new java.lang.String[] { "Data", });
+        new java.lang.String[] { "Data", "Pseudo", "Message", "FormatString", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

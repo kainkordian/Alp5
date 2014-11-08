@@ -18,7 +18,8 @@ public class U1_akServer implements Server{
 	
 	ServerSocket socket;
 	int port;
-	
+
+	StreamingThread sJob;
 	
 	//default port is 24
 	public U1_akServer (){
@@ -62,7 +63,7 @@ public class U1_akServer implements Server{
 		cThread.start();
 		
 		//launch streaming thread; stream music to different clients
-		StreamingThread sJob = new StreamingThread(audioInputStream, audioplay, soundFile);
+		sJob= new StreamingThread(audioInputStream, audioplay, soundFile);
 		Thread sThread = new Thread(sJob);
 		sThread.start();
 		
@@ -70,6 +71,7 @@ public class U1_akServer implements Server{
 		ChatThread chJob = new ChatThread();
 		Thread chThread = new Thread(chJob);
 		chThread.start();
+		chJob.setStreamingThread(sJob);
 		
 		//sync threads
 		while(true)
@@ -77,16 +79,24 @@ public class U1_akServer implements Server{
 			System.out.print("");
 			
 			//check if connectionThread got a new client
-			//if(cJob.getSocketClientsSize()!=sJob.getSocketClientsSize())
-			if(cJob.getSocketClientsSize()>0)
+			if(cJob.getSocketClientsSize()!=sJob.getSocketClientsSize())
+			//if(cJob.getSocketClientsSize()>0)
 			{
 				//if so, update client list in streamingThread
 				sJob.syncSocketClients(cJob.getSocketClients());
 				chJob.syncSocketClients(cJob.getSocketClients());
-				//System.out.println("socket client synced");
+				System.out.println("socket client synced");
 			}
 		}
 	}
+	
+	
+	
+	public void loadNewSoundFile(String path)
+	{
+		sJob.soundFile=new File(path);
+	}
+	
 	
 	/**
 	 * Close this server and free any resources associated with it.

@@ -9,16 +9,9 @@ message TestMessage {
 	optional string message = 3;
 }
 
-message ChatMessage {
-	required string pseudo = 1;
-	required string message = 2;
-}
-
-message AudioFormatMessage {
-	required string formatString = 1;
-	required string testString = 2;
-}
-
 message SoundDataMessage {
-	required bytes data = 1;
+	optional bytes data = 1;
+	optional string pseudo = 2;
+	optional string message = 3;
+	optional string formatString = 4;
 }

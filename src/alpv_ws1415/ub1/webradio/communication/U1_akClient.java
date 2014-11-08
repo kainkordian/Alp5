@@ -1,8 +1,7 @@
 package alpv_ws1415.ub1.webradio.communication;
 
 
-import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.AudioFormatMessage;
-import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.ChatMessage;
+import alpv_ws1415.ub1.webradio.protobuf.PacketProtos.SoundDataMessage;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ public class U1_akClient implements Client {
         boolean bigEndian = false;
 
         
-        //TODO: read the audio format from the string
         
         //examples:
         //swimwater1.wav: PCM_SIGNED 22050.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian
@@ -155,29 +153,23 @@ public class U1_akClient implements Client {
 			//System.out.println("connected!");
 			
 			//protobuf audio format message
-		    AudioFormatMessage audioformatmessage = 
-		    		AudioFormatMessage.parseDelimitedFrom(socket.getInputStream());
+			SoundDataMessage audioformatmessage = 
+					SoundDataMessage.parseDelimitedFrom(socket.getInputStream());
 
 			//interpretiere die nachricht in ein audio format
 			audioFormat=getAudioFormat(audioformatmessage.getFormatString());
-		    
-
-			//sendChatMessageToServer("hi server");
 			
 			//start audio player
 			AudioPlayer audioplay=new AudioPlayer(audioFormat);
 			audioplay.start();
 
 			
+			
 			//launch receive audio thread; get audio data and play it
-			ReceiveAudioThread raJob = new ReceiveAudioThread(audioplay,socket);
-			Thread raThread = new Thread(raJob);
-			raThread.start();
-
-			//launch receive chat thread; get incoming chat messages
-			ReceiveChatThread rcJob = new ReceiveChatThread(chatmsg,socket);
-			Thread rcThread = new Thread(rcJob);
-			//rcThread.start();
+			ReceiveDataThread rdJob = new ReceiveDataThread(audioplay,socket,chatmsg);
+			Thread rdThread = new Thread(rdJob);
+			rdThread.start();
+			
 			
 
 		} catch(IOException e) { }
@@ -187,13 +179,13 @@ public class U1_akClient implements Client {
 	public void sendChatMessageToServer(String m)
 	{
 
-		ChatMessage.Builder chatMessageBuilder = ChatMessage.newBuilder();
+		SoundDataMessage.Builder chatMessageBuilder = SoundDataMessage.newBuilder();
 		PrintWriter printWriter;
 					
 		chatMessageBuilder.setPseudo("clientPseudo");
 		chatMessageBuilder.setMessage(m);
 		
-		ChatMessage chatmessage = chatMessageBuilder.build();
+		SoundDataMessage chatmessage = chatMessageBuilder.build();
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 	    try {
@@ -205,7 +197,6 @@ public class U1_akClient implements Client {
 	 	 	
 	 	 	
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

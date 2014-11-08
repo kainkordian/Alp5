@@ -25,6 +25,7 @@ public class Main {
 	{
 		try 
 		{
+			@SuppressWarnings("unused")
 			boolean useGUI = false;
 			int i = -1;
 
