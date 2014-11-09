@@ -14,6 +14,7 @@ public class akChatMessage
 	
 	public String toString()
 	{
-		return "["+pseudo+"]: "+message;
+		return message;
+		//return "["+pseudo+"]: "+message;
 	}
 }

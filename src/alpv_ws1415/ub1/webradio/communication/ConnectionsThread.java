@@ -21,6 +21,9 @@ public class ConnectionsThread implements Runnable {
 	ArrayList<java.net.Socket> clients;
 	int port;
 	public int testyo;
+	boolean closeAll;
+	SoundDataMessage audioformatmsg;
+	ByteArrayOutputStream outStream;
 		
 	public ConnectionsThread(AudioFormat a, ServerSocket s, int p) {
 		super();
@@ -29,7 +32,29 @@ public class ConnectionsThread implements Runnable {
 		port = p;
 		clients = new ArrayList<java.net.Socket>();
 	}
+	
+	public void setAudioFormat(AudioFormat a)
+	{
+		audioformat=a;
+		SoundDataMessage.Builder audioFormatBuilder = SoundDataMessage.newBuilder();
+		audioFormatBuilder.setFormatString(audioformat.toString());
 
+		audioformatmsg = audioFormatBuilder.build();
+
+		outStream = new ByteArrayOutputStream();
+	    try {
+	    	audioformatmsg.writeDelimitedTo(outStream);
+	    	//audioformatmsg.writeTo(outStream);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void close()
+	{
+		closeAll=true;
+	}
 	public ArrayList<java.net.Socket> getSocketClients() {
 		return clients;
 	}
@@ -51,9 +76,9 @@ public class ConnectionsThread implements Runnable {
 		SoundDataMessage.Builder audioFormatBuilder = SoundDataMessage.newBuilder();
 		audioFormatBuilder.setFormatString(audioformat.toString());
 		
-		SoundDataMessage audioformatmsg = audioFormatBuilder.build();
+		audioformatmsg = audioFormatBuilder.build();
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		outStream = new ByteArrayOutputStream();
 	    try {
 	    	audioformatmsg.writeDelimitedTo(outStream);
 	    	//audioformatmsg.writeTo(outStream);
@@ -68,7 +93,7 @@ public class ConnectionsThread implements Runnable {
 		try 
 		{
 			//wait for connections
-			while(true) 
+			while(closeAll==false) 
 			{
 				socketClient = socket.accept();
 				clients.add(socketClient);

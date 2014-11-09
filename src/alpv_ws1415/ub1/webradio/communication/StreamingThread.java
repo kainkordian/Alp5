@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.AudioInputStream;
 
@@ -19,24 +20,36 @@ import java.util.ArrayList;
 public class StreamingThread implements Runnable {
 	private static final int	EXTERNAL_BUFFER_SIZE = 128000;
 	
+	ConnectionsThread cthread;
+	
 	AudioInputStream audioInputStream;
 	ArrayList<java.net.Socket> clients;
 	public akChatMessage lastMsg;
 	public boolean newMsg;
+	AudioFormat	audioformat;
 	
 	AudioPlayer audioplay;
 	public File soundFile;
 	boolean debugstuff;
 	
-	boolean newSoundFile;
+	public boolean newSoundFile;
 	
-	public StreamingThread(AudioInputStream as, AudioPlayer ap, File sf) {
+	boolean closeAll;
+	
+	public StreamingThread(ConnectionsThread cth, AudioInputStream as, AudioPlayer ap, File sf) {
+		cthread=cth;
+		closeAll=false;
 		audioInputStream = as;
 		audioplay = ap;
 		soundFile = sf;
 		clients = new ArrayList<java.net.Socket>();
 		newMsg=false;
 		newSoundFile=false;
+	}
+	
+	public void close()
+	{
+		closeAll=true;
 	}
 	
 	public ArrayList<java.net.Socket> getSocketClients() {
@@ -69,7 +82,7 @@ public class StreamingThread implements Runnable {
 		byte[]	abData = new byte[EXTERNAL_BUFFER_SIZE];
 		
 		
-		while (nBytesRead != -1) {
+		while (nBytesRead != -1 && closeAll==false) {
 			try	{
 				nBytesRead = audioInputStream.read(abData, 0, abData.length);
 			} catch (IOException e) {
@@ -123,7 +136,6 @@ public class StreamingThread implements Runnable {
 			
 			//end sound, loop
 			if(nBytesRead == -1 || newSoundFile) {
-				newSoundFile=false;
 				//reset
 				nBytesRead = 0;
 				abData = new byte[EXTERNAL_BUFFER_SIZE];
@@ -138,10 +150,61 @@ public class StreamingThread implements Runnable {
 				}
 				//start over
 				audioplay.start();
+				
+				if(newSoundFile)
+					informClientsNewSound();
+				newSoundFile=false;
 			}
 		}
 		System.out.println("Good bye!");
 		audioplay.stop();
 	}
 	
+	public void changeSong(String path)
+	{
+		soundFile=new File(path);
+		newSoundFile=true;
+	}
+	public void informClientsNewSound()
+	{
+
+		audioformat= audioInputStream.getFormat();
+		cthread.setAudioFormat(audioformat);
+		
+		PrintWriter printWriter;
+		
+		//protobuf usage: build audio format message
+		SoundDataMessage.Builder audioFormatBuilder = SoundDataMessage.newBuilder();
+		audioFormatBuilder.setFormatString(audioformat.toString());
+		
+		SoundDataMessage audioformatmsg = audioFormatBuilder.build();
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+	    try {
+	    	audioformatmsg.writeDelimitedTo(outStream);
+	    	//audioformatmsg.writeTo(outStream);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try 
+		{
+			if(clients!=null && clients.size()>0) 
+			{
+				//send to each client
+				for(int i=0; i < clients.size(); i++) 
+				{
+					//send audio format as string
+					printWriter = new PrintWriter(new OutputStreamWriter(clients.get(i).getOutputStream()));
+			 	 	printWriter.print(outStream);
+			 	 	printWriter.flush();
+
+				}
+			}
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

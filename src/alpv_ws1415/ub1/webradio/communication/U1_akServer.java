@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import alpv_ws1415.ub1.webradio.audioplayer.AudioPlayer;
+import alpv_ws1415.ub1.webradio.ui.akServerGUI;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -16,10 +17,12 @@ import java.io.IOException;
 
 public class U1_akServer implements Server{
 	
-	ServerSocket socket;
+	ServerSocket socket=null;
 	int port;
 
 	StreamingThread sJob;
+	ChatThread chJob;
+	ConnectionsThread cJob;
 	
 	//default port is 24
 	public U1_akServer (){
@@ -35,8 +38,14 @@ public class U1_akServer implements Server{
 	 * Runnable for the server.
 	 */
 	public void run() {
+
+		akServerGUI serverGUI=new akServerGUI(this);
+		serverGUI.run();
+		
+		
+		
 		//ini sound file and audioplayer
-		String strFilename = "data/test.wav";
+		String strFilename = "data/swimwater1.wav";
 		File soundFile = new File(strFilename);
 		
 		AudioInputStream audioInputStream = null;
@@ -58,17 +67,17 @@ public class U1_akServer implements Server{
 		System.out.println(audioFormat.toString());
 		
 		//launch connection thread; manage connecting clients
-		ConnectionsThread cJob = new ConnectionsThread(audioFormat, socket, port);
+		cJob= new ConnectionsThread(audioFormat, socket, port);
 		Thread cThread = new Thread(cJob);
 		cThread.start();
 		
 		//launch streaming thread; stream music to different clients
-		sJob= new StreamingThread(audioInputStream, audioplay, soundFile);
+		sJob= new StreamingThread(cJob, audioInputStream, audioplay, soundFile);
 		Thread sThread = new Thread(sJob);
 		sThread.start();
 		
 		//launch chat thread; listen to incoming chat message and send them to all
-		ChatThread chJob = new ChatThread();
+		chJob= new ChatThread();
 		Thread chThread = new Thread(chJob);
 		chThread.start();
 		chJob.setStreamingThread(sJob);
@@ -90,21 +99,23 @@ public class U1_akServer implements Server{
 		}
 	}
 	
-	
-	
-	public void loadNewSoundFile(String path)
-	{
-		sJob.soundFile=new File(path);
-	}
-	
-	
 	/**
 	 * Close this server and free any resources associated with it.
 	 */
 	public void close() {
 		try
 		{ 
-			socket.close();
+			if(cJob!=null)
+				cJob.close();
+			
+			if(chJob!=null)
+				chJob.close();
+			
+			if(sJob!=null)
+				sJob.close();
+			
+			if(socket!=null)
+				socket.close();
 		}
 		catch(IOException e)
 		{
@@ -122,6 +133,9 @@ public class U1_akServer implements Server{
 	 * @throws IOException
 	 */
 	public void playSong(String path) throws MalformedURLException, UnsupportedAudioFileException, IOException {
-		
+		if(sJob!=null)
+		{
+			sJob.changeSong(path);
+		}
 	}
 }

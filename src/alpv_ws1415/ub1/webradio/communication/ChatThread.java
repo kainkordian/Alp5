@@ -13,6 +13,7 @@ public class ChatThread implements Runnable {
 	ArrayList<akChatMessage> chatmsg;
 	boolean debugstuff;
 	StreamingThread st;
+	boolean closeAll;
 	
 	public ChatThread()
 	{
@@ -21,7 +22,11 @@ public class ChatThread implements Runnable {
 		clients = new ArrayList<java.net.Socket>();
 		debugstuff=false;
 	}
-	
+
+	public void close()
+	{
+		closeAll=true;
+	}
 	public void setStreamingThread(StreamingThread s)
 	{
 		st=s;
@@ -48,20 +53,18 @@ public class ChatThread implements Runnable {
 	@Override
 	public void run() {
 
-		//chatmsg.add(new akChatMessage("wixxer","fuk u"));
 		//System.out.println("running chat thread");
 
 		@SuppressWarnings("unused")
 		int clientISent=0;
 		try
 		{
-			while (true) 
+			while (closeAll==false) 
 			{
 				//check if any client has sent a message
 				//in this case we wait for each client after another to send a message.
 				//how can we check for all of them at the same time?
-				//one thread for each?...
-				//System.out.print("scum:");
+				//one thread for each?..
 				
 				if(debugstuff)
 				{
@@ -81,7 +84,7 @@ public class ChatThread implements Runnable {
 						{
 							chatmsg.add(new akChatMessage(chatMessage.getPseudo(),chatMessage.getMessage()));
 	
-							//System.out.println("(server)Message received: "+chatmsg.get(chatmsg.size()-1).toString());
+							System.out.println("(server)Message received: "+chatmsg.get(chatmsg.size()-1).toString());
 							
 							clientISent=i;
 							
