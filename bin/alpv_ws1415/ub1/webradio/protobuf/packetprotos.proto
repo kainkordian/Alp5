@@ -8,3 +8,10 @@ message TestMessage {
 	required bytes data = 2;
 	optional string message = 3;
 }
+
+message SoundDataMessage {
+	optional bytes data = 1;
+	optional string pseudo = 2;
+	optional string message = 3;
+	optional string formatString = 4;
+}

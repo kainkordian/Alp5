@@ -15,23 +15,17 @@ public class akClientGUI implements ClientUI {
 
 	String uname;
 	U1_akClient akClient;
-
 	JTextField msgField;
 	JTextArea txtArea;
-
 	JFrame frame;
-
-
+	
 	@Override
-	public void run() 
-	{
+	public void run() {
 		buildWindow();
 
 	}
-
 	
-	public akClientGUI(U1_akClient c) 
-	{
+	public akClientGUI(U1_akClient c) {
 		akClient=c;
 
 		txtArea = new JTextArea(2, 20);
@@ -39,7 +33,7 @@ public class akClientGUI implements ClientUI {
 	}
 
 	private void buildWindow() {
-		frame = new JFrame("Webradio Client");
+		frame = new JFrame("ak GUI Client");
 		frame.setSize(300, 400);
 		frame.setLocationRelativeTo(null);
 
@@ -54,63 +48,48 @@ public class akClientGUI implements ClientUI {
 		msgField.setMaximumSize(msgField.getMinimumSize());
 
 		Button read_button = new Button("Send");
-		read_button.addActionListener(new ActionListener() 
-		{
+		read_button.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
+			public void actionPerformed(ActionEvent arg0) {
 				String temp = msgField.getText();
-				if (!temp.isEmpty())
-				{
-					try
-					{
+				if (!temp.isEmpty()) {
+					try {
 						akClient.sendChatMessage(temp);
 						msgField.setText("");
 					} 
-					catch (IOException e) 
-					{
-					}
+					catch (IOException e) { }
 				}
 			}
 		});
 
+		//shut process
 		
-		
-		//close application
-		
-		Button close_button = new Button("Close");
-		close_button.addActionListener(new ActionListener() 
-		{
+		Button shutdown = new Button("Close");
+		shutdown.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
+			public void actionPerformed(ActionEvent arg0) {
 				akClient.close();
 				System.exit(0);
 			}
 		});
 		
-		frame.addWindowListener(new java.awt.event.WindowAdapter()
-		{
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
-		    public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-		    {
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 		    	akClient.close();
 				System.exit(0);
 		    }
 		});
 		
-		
-		
-		//add to panel
+		//add to ui
 		panel.add(txtArea);
 		panel.add(msgField);
 		panel.add(read_button);
-		panel.add(close_button);
+		panel.add(shutdown);
 
 		frame.setVisible(true);
-
 	}
 
 
@@ -121,8 +100,7 @@ public class akClientGUI implements ClientUI {
 
 
 	@Override
-	public void pushChatMessage(String message) 
-	{
+	public void pushChatMessage(String message) {
 		txtArea.append(message);
 	}
 }
